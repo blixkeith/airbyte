@@ -3,6 +3,7 @@ package io.airbyte.integrations.source.bigquery
 
 import com.google.api.gax.rpc.FixedHeaderProvider
 import com.google.auth.oauth2.ServiceAccountCredentials
+import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.NoCredentials
 import com.google.cloud.bigquery.BigQuery
 import com.google.cloud.bigquery.BigQueryOptions
@@ -28,6 +29,17 @@ object BigQueryClientFactory {
                 .setHeaderProvider(FixedHeaderProvider.create("user-agent", USER_AGENT))
         if (config.emulatorHost != null) {
             builder.setHost(config.emulatorHost).setCredentials(NoCredentials.getInstance())
+        }
+        else if {
+            val credentials: GoogleCredentials =
+                try {
+                    GoogleCredentials.fromStream(config.credentialsJson.byteInputStream())
+                } catch (e: IOException) {
+                    throw ConfigErrorException(
+                        "Unable to parse 'credentials_json' as an access token: ${e.message}",
+                        e,
+                    )
+                }
         } else {
             val credentials: ServiceAccountCredentials =
                 try {

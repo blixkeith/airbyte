@@ -73,7 +73,7 @@ the project), and so are the two advanced properties:
   jobs running at the same time (`maxConcurrency` of the Bulk CDK, one job per partition reader).
   When unset the connector runs one query at a time on STDIO and one per socket in speed mode.
 
-The key must be a service account key (`"type": "service_account"` with `client_email` and a
+The key can be a Google Secure Token Service (STS) access token, or a service account key (`"type": "service_account"` with `client_email` and a
 PEM-encoded PKCS#8 `private_key`); anything else fails fast in `BigQuerySourceConfigurationFactory`
 with a precise `ConfigErrorException`. The JDBC URL is
 `jdbc:bigquery://https://www.googleapis.com/bigquery/v2:443;ProjectId=<project>;OAuthType=0` and
