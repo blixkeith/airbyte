@@ -16,6 +16,7 @@ pluginManagement {
     repositories {
         // # Gradle looks for dependency artifacts in repositories listed in 'repositories' blocks in descending order.
 
+
         // ## Prefer repos controlled by Airbyte.
         if (airbytePublicJarsUrl) {
             maven {
